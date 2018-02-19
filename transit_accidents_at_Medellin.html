@@ -116,7 +116,7 @@
 
 <slide class=''><hgroup><h2>Synopsis</h2></hgroup><article  id="synopsis">
 
-<p>In order to practice how to build up a web page using R Markdown and interactive maps with Leaflet, in this presentation is depicted with its global position coordinates three class of transit accidents which are clasified by their severity (Injured, Dead or Material Damages) from Medellín city (Colombia) for first 10 days on 2016 according to information of <a href='https://geomedellin-m-medellin.opendata.arcgis.com/datasets/accidentalidad-2016' title=''>Transit Secretary of Medellin Mayor</a>.</p>
+<p>In order to practice how to build up a web page using R Markdown and interactive maps with Leaflet, in this presentation is depicted with its global position coordinates three class of transit accidents which are classified by their severity (Injured, Dead or Material Damages) from Medellín city (Colombia) for first 10 days on 2016 according to information of <a href='https://geomedellin-m-medellin.opendata.arcgis.com/datasets/accidentalidad-2016' title=''>Transit Secretary of Medellin Mayor</a>.</p>
 
 <p>The accidents of each type of severe are depicted on one layer with the option of clustering markers and on each marker is able a click in order to read the class and date of the accident.</p>
 
@@ -145,7 +145,7 @@ dfMatDam &lt;-subset(dfAccTransit,SEVERITY==&quot;MATERIAL DAMAGES&quot;)</pre>
 </article></slide><slide class=''><hgroup><h2>Setting up Map</h2></hgroup><article  id="setting-up-map">
 
 <pre class = 'prettyprint lang-r'>mapMedTrans &lt;-leaflet() %&gt;% 
-              addTiles() %&gt;%
+              addProviderTiles(providers$OpenStreetMap) %&gt;%
               addMarkers(dfInjured, lng=dfInjured$LNG, lat=dfInjured$LAT,group = &quot;Injured&quot;, 
                          popup =paste(dfInjured$CLASS,&quot;on&quot;,dfInjured$DATE,sep = &quot; &quot;),
                          clusterOptions = markerClusterOptions()) %&gt;%

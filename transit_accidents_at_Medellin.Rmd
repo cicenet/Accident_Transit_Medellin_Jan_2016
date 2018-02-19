@@ -34,7 +34,7 @@ dfMatDam <-subset(dfAccTransit,SEVERITY=="MATERIAL DAMAGES")
 ## Setting up Map
 ```{r depicting_map}
 mapMedTrans <-leaflet() %>% 
-              addTiles() %>%
+              addProviderTiles(providers$OpenStreetMap) %>%
               addMarkers(dfInjured, lng=dfInjured$LNG, lat=dfInjured$LAT,group = "Injured", 
                          popup =paste(dfInjured$CLASS,"on",dfInjured$DATE,sep = " "),
                          clusterOptions = markerClusterOptions()) %>%

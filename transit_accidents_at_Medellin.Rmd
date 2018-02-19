@@ -1,0 +1,53 @@
+---
+title: "transit accidents at Medellin in January 2016"
+author: "Edgar Alirio Rodridriguez"
+date: "18 de febrero de 2018"
+geometry: "left=2cm,right=2cm,top=1cm,bottom=1cm"
+font-family: 'Helvetica'
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE, fig.show = "asis", fig.keep = "all", cache=TRUE)
+```
+```{r preparation}
+library(leaflet)
+```
+
+## Synopsis
+In order to practice how to build up a web page using R Markdown and interactive maps with Leaflet, in this presentation is depicted with its global position coordinates three class of transit accidents which are classified by their severity (Injured, Dead or Material Damages) from Medellín city (Colombia) for first 10 days on 2016 according to information of [Transit Secretary of Medellin Mayor](https://geomedellin-m-medellin.opendata.arcgis.com/datasets/accidentalidad-2016).
+
+The accidents of each type of severe are depicted on one layer with the option of clustering markers and on each marker is able a click in order to read the class and date of the accident.
+
+## Loading data and summary
+```{r loading_data}
+dfAccTransit <-read.csv("crashing_data_Jan_2016.csv", sep = ";",
+                        stringsAsFactors=FALSE)
+table(dfAccTransit$SEVERITY,dfAccTransit$CLASS)
+#Subsetting data by severity of transit accident
+dfInjured <-subset(dfAccTransit,SEVERITY=="INJURED")
+dfDead <-subset(dfAccTransit,SEVERITY=="DEAD")
+dfMatDam <-subset(dfAccTransit,SEVERITY=="MATERIAL DAMAGES")
+```
+
+## Setting up Map
+```{r depicting_map}
+mapMedTrans <-leaflet() %>% 
+              addTiles() %>%
+              addMarkers(dfInjured, lng=dfInjured$LNG, lat=dfInjured$LAT,group = "Injured", 
+                         popup =paste(dfInjured$CLASS,"on",dfInjured$DATE,sep = " "),
+                         clusterOptions = markerClusterOptions()) %>%
+              addMarkers(dfDead, lng=dfDead$LNG, lat=dfDead$LAT,group = "Dead",
+                         popup =paste(dfDead$CLASS,"on",dfDead$DATE,sep = " "),
+                         clusterOptions = markerClusterOptions())%>%
+              addMarkers(dfMatDam, lng=dfMatDam$LNG, lat=dfMatDam$LAT, group = "Material Damages",
+                         popup =paste(dfMatDam$CLASS,"on",dfMatDam$DATE,sep = " ",
+                         clusterOptions = markerClusterOptions()))%>%
+                
+                addLayersControl(baseGroups = c("Injured", "Dead", "Material Damages"))
+```
+## Printing Map
+```{r printing_map}
+mapMedTransitInc 
+```

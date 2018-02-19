@@ -1,0 +1,2 @@
+# Accident_Transit_Medellin_Jan_2016
+In this repository are saved files that depict with its global position coordinates three class of transit accidents which are classified by their severity (Injured, Dead or Material Damages) from Medellín city (Colombia) for first 10 days on 2016 according to information of Transit Secretary of Medellin Mayor (https://geomedellin-m-medellin.opendata.arcgis.com/datasets/accidentalidad-2016).
